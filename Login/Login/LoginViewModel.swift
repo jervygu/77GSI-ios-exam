@@ -14,18 +14,9 @@ class LoginViewModel {
     let usernameTFPublishSubject = PublishSubject<String>()
     let passwordTFPublishSubject = PublishSubject<String>()
     
-    func isCredentialValid() -> Bool {
-        return true
-    }
-    
-    func isValid(input: String?) -> Bool {
-        guard let input = input else { return false }
-        return !input.isEmpty
-    }
-    
     func isValid() -> Observable<Bool> {
         let obs = Observable.combineLatest(usernameTFPublishSubject.asObservable().startWith(""), passwordTFPublishSubject.asObservable().startWith("")).map { username, password in
-            return username.count > 3 && password.count > 3
+            return username.count > 6 && password.count > 8
         }
         return obs.startWith(false)
     }
